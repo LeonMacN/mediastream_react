@@ -1,6 +1,7 @@
 const movieReducer = (state = {
     movies: [],
-    reviews: []
+    reviews: [],
+    favorites: []
 }, action) => {
     switch (action.type) {
         case "getAllMovies_FULFILLED":
@@ -14,6 +15,12 @@ const movieReducer = (state = {
                 ...state,
             };
             state.reviews = action.payload
+            break;
+        case "addToFavorites":
+            state = {
+                ...state,
+                favorites: [...state.favorites, action.payload]
+            };
             break;
     }
     return state;

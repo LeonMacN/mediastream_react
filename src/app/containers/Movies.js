@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getMovieReviews, getAllMovies } from "../actions/moviesActions";
+import { addToFavorites, getAllMovies } from "../actions/moviesActions";
 import { MovieCard } from "../components/MovieCard";
 
 class Movies extends React.Component {
@@ -17,7 +17,14 @@ class Movies extends React.Component {
     if (this.props.data.movies.results) {
       return (
         <div className="row">
-          {this.props.data.movies.results.map((movie, index) => <MovieCard key={index} movie={movie} />)}
+          {this.props.data.movies.results.map((movie, index) => (
+            <MovieCard
+              key={index}
+              movie={movie}
+              addToFavorites={this.props.addToFavorites}
+              favorites={this.props.data.favorites}
+            />
+          ))}
         </div>
       );
     } else {
@@ -28,14 +35,15 @@ class Movies extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.movies
+    data: state.movies,
+    favorites: state.favorites
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMovieReviews: id => {
-      dispatch(getMovieReviews(id));
+    addToFavorites: id => {
+      dispatch(addToFavorites(id));
     },
     getAllMovies: () => {
       dispatch(getAllMovies());

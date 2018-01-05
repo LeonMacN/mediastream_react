@@ -39,3 +39,10 @@ export function getMovieReviews(id) {
     })
   };
 }
+
+export function addToFavorites(id) {
+  return {
+    type: "addToFavorites",
+    payload: id
+  }
+}
